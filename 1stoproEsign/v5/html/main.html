@@ -1,0 +1,194 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="../css/style.css">      
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script type="text/javascript" src="../lib/handlebars.js"></script>
+      <script src="../lib/WidgetTrigger.js"></script>    
+        <script type="text/javascript" src="https://live.zwidgets.com/js-sdk/1.0.6/ZohoEmbededAppSDK.min.js"></script>
+      <script src="../js/chosen.jquery.js"></script>          
+      <script src=""></script>
+      <script>
+         $(document).ready(function(){   
+            ZOHO.embeddedApp.on("PageLoad", function(pageLoadData) {
+               data.pageLoadData = pageLoadData;
+            });
+            ZOHO.embeddedApp.init().then(function(){
+               initZohoSign();
+            })
+               $(".pSelect select").chosen({width: '100%'}); //No I18N
+               $(".pSelect select").trigger("chosen:updated"); //No I18N
+               
+         });  
+      </script>    
+   </head>
+   <body>
+      <div id="auth" style="display: none">
+      <p>
+         You need to configure your Zoho Sign Integration before you access "Send for Sign", You will be redirected to E-Sign Setup page.      
+      </p>
+    </div>
+    <div id="upgradPlan" style="display: none">
+      <p>
+         E-Signing is available only in Professional and Enterprise, Please <a id="#" href="#">upgrade</a> your subscription to use "Send for E-Sign".      
+      </p>
+    </div>
+    <div id="status" style="display: none">
+      <p>
+         E-Signing has been completed for this record, to perform 'Send for E-Sign' please change the status of this record as 'Created'.      
+      </p>
+    </div>
+    <div id="DetailpageLoad" class="DetailpageLoad">
+                <div id="loader" class="loader"></div>
+            </div>
+      <div id="Loading" style="display: none;">Loading<span class="one">.</span>
+         <span class="two2">.</span><span class="three">.</span>
+      </div>
+      <form action="#">
+         <div id="zhosingIN">
+            <div class="fileUpload">
+               <div class="flieLabel"><span class="f16">Add Document</span><span style="font-size: 18px; color:#f44336; display: inline-block; margin-left:5px;">*</span></div>
+               <div style=" display: table-cell; position: relative; ">
+                  <div id="fileUploadDiv" class="fileUploadZSign">
+                     <i class="uploadIcon"></i>
+                     <input type="file" name="file" id="file" onchange="setFileName()"/>
+                     <span class="appText">No files uploaded</span>  
+
+                  </div>
+                  <a href="javascript:;" class="uploadLink">Upload file</a>
+                  <!--<a href="javascript:;" class="uploadLink bdrTop0" onclick="setFileFromDocs();">Upload file from Documents</a> -->
+                  <a href="javascript:;" class="uploadLink bdrTop0" onclick="getMailMergeTemplates();">Use MailMerge Templates</a>                  
+               </div>
+               <div class="bg" style="display:none;">
+               <div class="fileFromMailMerge"></div>
+               <script id="mmTemplateListing" type='text/x-handlebars-template'>
+                     {{#unless files}}
+                        <div class="file-box emptyText">No Template Available</div>
+                     {{/unless}}
+                     {{#if files}}
+                     <div class="fieldHdr">Select a MailMerge Template</div>
+                     <div class="fldDiv">
+                     <div class="valuefld pSelect">
+                        <select id="templates">
+                                <option value="-None-">-None-</option>
+                                {{#each files}}
+                                    <option value={{Id}}>{{Name}}</option>
+                                {{/each}}
+                        </select>
+                     </div>                     
+                     </div>
+                  {{/if}}
+                  
+                  <div class="BtnBG">
+                     <input type="button" onclick="cancelPopup();" name="Cancel" class="fR" id="cancelBtn" value="Cancel">
+                     {{#if files}}
+                     <input type="button"  href="javascript:;" onclick="addMMTemplate();" name="Add" class="blueBtn fR mR10" id="addTemplate" value="Add">
+                     {{/if}}
+                  </div>
+               </script>
+
+               <div class="fileUploadFromDocs">                  
+               <script id='fileListing' type='text/x-handlebars-template'>
+                     {{#unless files}}
+                        <div class="file-box emptyText">No Files Available</div>
+                     {{/unless}}
+
+                     {{#if files}}
+                     <div class="fieldHdr">Select a File</div>
+                     <div class="fldDiv">
+                     <div class="valuefld">
+                        <table cellpadding="0" cellspacing="0" width="100%" class="fil-list">
+                           <tr>
+                              <td width="40%" class="tableHdrtd"><div class="tablehdrlist">Name</div></td>
+                              <td width="15%" class="tableHdrtd"><div class="tablehdrlist">File Type</div></td>
+                              <td width="25%" class="tableHdrtd"><div class="tablehdrlist">Authour</div></td>
+                              <td width="20%" class="tableHdrtd"><div class="tablehdrlist">Shared Time</div></td>
+                           </tr>
+                           {{#each files}}
+                           <tr>
+                           
+                           <td width="40%" class="tablelisttd">
+                             <div class="tablelist">
+                              <a href="javascript:;" class="gDriveThumbNailHover" onclick='chooseFile("{{this.docs_download_url}}","{{this.encattr_res_name}}","{{this.res_type}}");'>{{this.encattr_res_name}}<a>
+                                 <a target="_blank" href="{{this.docs_download_url}}"><div class="donwload-f"></div></a>
+                             </div>
+                           </td>                     
+                           <td width="15%" class="tablelisttd"><div class="tablelist">{{this.res_type}}</div></td>
+                           <td width="25%" class="tablelisttd"><div class="tablelist">{{this.encauthor_name}}</div></td>
+                           <td width="20%" class="tablelisttd"><div class="tablelist">{{this.shared_time}}</div></td>
+                           </tr>
+                           {{/each}}
+                        </table>
+                        </div>
+                     {{/if}}
+                     </div>
+                     <div class="BtnBG">                                                      
+                        <input type="button" onclick="cancelPopup();" name="Cancel" id="cancelBtn" value="Cancel">
+                     </div>
+                     
+            </script>
+         </div>
+         </div>
+            </div>
+            <table cellpadding="0" cellspacing="0" width="100%" class="iteamlist mT10" id="addRec">
+               <tbody>
+                  <tr>
+                     <td width="40%" class="listhdr"><span class="clr3">Recipient Details</span><span style="font-size: 18px; color:#f44336; display: inline-block; margin-left:-3px">*</span></td>
+                     <td width="25%" class="listhdr"><input type="checkbox" id="signOrderCheckBox" onchange="toggleSignOrder()"> <label for="signOrderCheckBox"> Set Sign Order</label></td>
+                     <td width="30%" class="listhdr"><label for="signerRoleCheckBox"> Set Signer Role</label></td>
+                     <td width="5%" class="listhdr"></td>
+                  </tr>
+               </tbody>
+            </table>
+            <div class="addRecipient">
+               <a href="javascript:;" onclick="addrecipient('this',0,'')">
+                  <div class="icon">
+                     <div class="plus"></div>
+                  </div>
+                  Add Recipient
+               </a>
+            </div>
+            <div class="formInputDiv">
+               <div class="formInputLabel">Document Name </div>
+               <div class="formInputBox"><input class="textField" type="text" id="docuName" name="docuName" /></div>
+            </div>
+            <div class="formInputDiv">
+               <div class="formInputLabel">Notes </div>
+               <div class="formInputBox"><input class="textField" type="text" id="notesArea" name="notes" /></div>
+            </div>
+            <div class="formInputDiv">
+               <div class="formInputLabel">Description </div>
+               <div class="formInputBox"><input class="textField" type="text" id="descriptionArea" /></div>
+            </div>
+               
+            <div class="formInputDiv">
+                  <div class="formInputLabel">Expires in </div>
+                  <div class="formInputBox">
+                  <input type="text" name="expiresIn" maxlength="2" id="expiresIn" value="15" class="reminder_text"/><span class="reminderlabel">day(s)</span>
+                  </div>
+               </div>           
+            <div class="formInputDiv" style="display: none;">
+                  <div class="formInputLabel" style="margin-top:20px">More Settings</div>
+            </div>
+            <div class="pageDiv" style="display: none;">
+
+               <div class="toggle_reminder "><input id="toggle_reminder" type="checkbox" name="toggle_reminder"><label for="toggle_reminder" style="font-size:17px;">&nbsp;&nbsp;Send automatic reminders</label>   
+
+               <div class="reminder_options_container mT10">
+                  <span class="reminderlabel">Continue to send reminders for every</span>
+                  <div class="fL">
+                  <input type="text" name="reminder_frequency_text" maxlength="1" id="reminder_frequency_text" value="0" class="reminder_text"/><span class="reminderlabel">day(s)</span>
+               </div>
+               </div>    
+               </div>
+                
+            </div>
+         </div>
+         <div class="btnbg">
+            <button type="button" id="submit14" class="blueBtn" onclick="processForm()">Save</button>
+            <image id="loadingGif" src="../images/ajax-loader1.gif" style="display:none"/>
+         </div>
+      </form>
+      </div>
+   </body>
+</html>

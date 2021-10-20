@@ -1,0 +1,72 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="../css/recallStyle.css">
+      <!-- <link href="https://css.zohostatic.com/personal/docs_v631/docscomponents/css/lightgrey/linkdocscomponent.css" rel="stylesheet" type="text/css" id="css_linkdocscomponents"> -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script type="text/javascript" src="../lib/handlebars.js"></script>
+      <script src="../lib/recallTrigger.js"></script>
+    <!--  <script src="../lib/ZohoCrmHelper.js"></script>
+      <script src="../lib/ZSDK.js"></script>    -->
+        <!--<script src="../lib/li.js"></script> -->
+        <!--<script src="../lib/ZohoEmbededAppSDK_new.min.js"></script>-->
+        <script type="text/javascript" src="https://live.zwidgets.com/js-sdk/1.0.6/ZohoEmbededAppSDK.min.js"></script>
+      <script src="../js/chosen.jquery.js"></script>    
+      <!-- <script src="https://js.zohostatic.com/personal/docs_v631/docscomponents/js/linkdocscomponent.js" type="text/javascript" id="js_linkdocscomponents"></script> -->
+
+      <script src=""></script>
+      <script>
+         $(document).ready(function(){   
+            ZOHO.embeddedApp.on("PageLoad", function(pageLoadData) {
+               data.pageLoadData = pageLoadData;
+               initFunc();
+            });
+            ZOHO.embeddedApp.init().then(function(){
+               ZOHO.CRM.UI.Resize({
+                  height: "400",
+                  width: "600"
+                });//.then(Handler.getBankAccountRelatedRecords());
+               //initZohoSign();
+               //initFunc();
+            })              
+               
+         });  
+      </script>    
+   </head>
+   <body>
+      <div id="confirmDiv" class="BlackBG" style="display:none;">
+         <div class="sharepop">
+            <div class="hdrBG">
+                <div class="hdrTet">Alert</div>
+                <div class="closeDiv" onclick="doNothing();"></div>
+            </div>
+            <div class="contentDiv">
+                <div class="fieldcontent">
+                    <div class="fieldlabel">
+                        <span class="labelText">Are you sure want to Recall Document?</span></div>                    
+                </div>
+             </div>
+            <div class="BtnBG">
+                <a href="javascript:;" onclick="recallDoc();" class="primaryBtn fR">Yes</a>
+                <a href="javascript:;" onclick="doNothing();" class="secondaryBtn fR mR10">No</a>
+            </div>
+         </div>
+      </div>
+      <div id="msgDiv" class="BlackBG" style="display:none;">
+         <div class="sharepop">
+            <div class="hdrBG">
+                <div class="hdrTet">Message</div>
+                <div class="closeDiv" onclick="doNothing();"></div>
+            </div>
+            <div class="contentDiv">
+                <div class="fieldcontent">
+                    <div class="fieldlabel">
+                        <span id="msgTxt" class="labelText">can't recall this document</span>
+                     </div>   
+                  </div>
+             </div>            
+         </div>
+      </div>
+
+   </body>
+</html>

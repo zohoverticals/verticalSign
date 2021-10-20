@@ -1,0 +1,157 @@
+.sharepop {
+    width: 500px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    background: #fff;
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 30px;
+    transform: translate(-50%);
+}
+.hdrBG {
+    width: 100%;
+    float: left;
+    padding: 10px 10px 8px;
+    box-sizing: border-box;
+    background: #f0f1f3;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+.hdrTet {
+    font-size: 18px;
+    color: #111;
+    float: left;
+}
+
+.closeDiv {
+    width: 15px;
+    height: 15px;
+    background: transparent;
+    transition: transform .3s ease-out;
+    cursor: pointer;
+    border-radius: 999px;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.closeDiv:before,
+.closeDiv:after {
+    content: "";
+    width: 1px;
+    height: 15px;
+    border-radius: .5px;
+    background: #444;
+    line-height: 1;
+    right: 10px;
+    top: 0px;
+    position: absolute;
+    transition: transform .3s ease-out;
+}
+
+.closeDiv:before {
+    transform: rotate(-45deg);
+}
+
+.closeDiv:after {
+    transform: rotate(45deg);
+}
+
+.closeDiv:hover.closeDiv::before {
+    width: 2px;
+    transform: rotate(-90deg);
+}
+
+.closeDiv:hover.closeDiv::after {
+    width: 2px;
+    transform: rotate(90deg);
+}
+.BtnBG {
+    width: 100%;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    background: #fff;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -7px 10px -10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+    padding: 6px 16px;
+    font-size: 15px;
+    color: #fff;
+    background: #42a2eb;
+    border: 1px solid #42a2eb;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.secondaryBtn {
+    color: #3c3c3c;
+    background: #fff;
+    border: 1px solid #c4c4c4;
+}
+
+.secondaryBtn:hover {
+    border-bottom-color: #777;
+}
+
+.primaryBtn:hover {
+    border-bottom-color: #1b70b0;
+    background: #3c98dd;
+}
+.mR10{
+    margin-right: 10px;
+}
+.fL{
+    float: left;
+}
+.fR{
+    float: right;
+}
+.BlackBG, .BlackBGAlert {
+    height: 100%;
+    /*position: fixed;*/
+    width: 100%;
+    z-index: 999;
+    background: rgba(64, 69, 72, .3);
+}
+.contentDiv {
+    width: 100%;
+    padding: 25px 20px 60px;
+    box-sizing: border-box;
+    background: #fff;
+    max-height: 250px;
+    overflow-y: scroll;
+    margin-top: 34px;
+    text-align: center;
+}
+.fieldcontent {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.fieldlabel {
+    width: 35%;
+    float: left;
+    padding: 6px 14px 5px 5px;
+    box-sizing: border-box;
+    height: 36px;
+}
+
+.labelText {
+    width: 300%;
+    height: 100%;
+    /* font-size: 15px; */
+    /* color: #777; */
+    float: left;
+    text-align: center;
+    line-height: 1.8;
+}
