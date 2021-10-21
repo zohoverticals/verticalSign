@@ -296,7 +296,7 @@ function loadSignPage(){
                             .then(function(data){
                                 //data.pageLoadData.recordDetail = recdetails;
                                 lookupRecData = data.data[0];
-                                value = "("+data.data[0].Full_Name+")"+data.data[0].Email;
+                                value = data.data[0].Full_Name+"-"+data.data[0].Email;
                                 addrecipient(undefined,1,value);
                             })
 
@@ -325,7 +325,7 @@ function loadSignPage(){
                                     contactId = Contact_Name.id;
                                     ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:contactId})
                                     .then(function(data){
-                                        value = "("+data.data[0].Full_Name+")"+data.data[0].Email;
+                                        value = data.data[0].Full_Name+"-"+data.data[0].Email;
                                         addrecipient(undefined,1,value);
                                     });
                                     
@@ -1500,10 +1500,8 @@ function generateActions(updateDataGenerator, signOrderSet) {
             chosenValue = secondarySignerRole[0].options[secondarySignerRole[0].selectedIndex].value.toUpperCase();
             tempJson.action_type = chosenValue;
         }else{
-            var test1 = $("#select_row_" + rowNumber + "_" + currentDivRowId).chosen().val().split(")")[0];
-            displayTextName = test1.replace("(", "");
-            var test2 = $("#select_row_" + rowNumber + "_" + currentDivRowId).chosen().val().split(")")[1];
-            displayTextEmail = test2.trim();
+            displayTextName = $("#select_row_" + rowNumber + "_" + currentDivRowId).chosen().val().split("-")[0];
+            displayTextEmail = $("#select_row_" + rowNumber + "_" + currentDivRowId).chosen().val().split("-")[1];
             //"fields":{"image_fields":[{"abs_height":59,"abs_width":99,"action_id":"27074000000274056","description_tooltip":"","document_id":"27074000000277019","field_category":"image","field_label":"Signature","field_name":"Signature","field_type_id":"27074000000000141","is_mandatory":true,"page_no":0,"x_coord":42,"y_coord":3}],"radio_groups":{},"text_fields":[{"abs_height":59,"abs_width":99,"action_id":"27074000000274056","default_value":"","description_tooltip":"","document_id":"27074000000277019","field_category":"textfield","field_label":"Email","field_name":"Email","field_type_id":"27074000000000149","is_mandatory":true,"page_no":0,"text_property":{"font":"Arial","font_color":"000000","font_size":11,"is_bold":false,"is_italic":false,"is_read_only":false,"is_underline":false},"x_coord":4,"y_coord":3}]}
            // tempJson.fields = {"image_fields":[{"abs_height":59,"abs_width":99,"action_id":"27074000000274056","description_tooltip":"","document_id":"27074000000277019","field_category":"image","field_label":"Signature","field_name":"Signature","field_type_id":"27074000000000141","is_mandatory":true,"page_no":0,"x_coord":42,"y_coord":3}],"radio_groups":{},"text_fields":[{"abs_height":59,"abs_width":99,"action_id":"27074000000274056","default_value":"","description_tooltip":"","document_id":"27074000000277019","field_category":"textfield","field_label":"Email","field_name":"Email","field_type_id":"27074000000000149","is_mandatory":true,"page_no":0,"text_property":{"font":"Arial","font_color":"000000","font_size":11,"is_bold":false,"is_italic":false,"is_read_only":false,"is_underline":false},"x_coord":4,"y_coord":3}]};
             displayTextName = displayTextName.replaceAll("\"","");
