@@ -423,8 +423,8 @@ function populateUserSelect(rowNumber){
     for(var i=0;i<copySecondaryRecordsData.length; i++){
         option = $('<option/>').attr({
             id: 'label_' + copySecondaryRecordsData[i][modName[0]],
-            value: copySecondaryRecordsData[i][modName[1]] + "-" + copySecondaryRecordsData[i][modName[2]]
-        }).text(copySecondaryRecordsData[i][modName[1]] + "-" + copySecondaryRecordsData[i][modName[2]]).appendTo(select);
+            value: "{" +copySecondaryRecordsData[i][modName[1]] + "} " + copySecondaryRecordsData[i][modName[2]]
+        }).text("{"+copySecondaryRecordsData[i][modName[1]] + " } " + copySecondaryRecordsData[i][modName[2]]).appendTo(select);
     }
     var option = $('<option/>').attr({
         id: 'label_newRecipient',
@@ -548,7 +548,7 @@ function addrecipient(obj,flag,value) {
         addRecord(rowCounter,flag,value);    
     }
     for(i=0;i<zsignUserArray.length;i++){
-        $("#select_zsuser_row_"+rowCounter).append('<option value="' + zsignUserArray[i].email + '-'+ zsignUserArray[i].name + '">' + zsignUserArray[i].email +'-'+ zsignUserArray[i].name + '</option>');
+        $("#select_zsuser_row_"+rowCounter).append('<option value="' + zsignUserArray[i].email + ' {'+ zsignUserArray[i].name + '">' + zsignUserArray[i].email +' {'+ zsignUserArray[i].name + '</option>');
     }
     showSelectBOx();
 }
@@ -1524,8 +1524,8 @@ function generateActions(updateDataGenerator, signOrderSet) {
             //tempJson.recipient_name = $("#hostName"+rowNumber).val();
             //tempJson.recipient_email = $("#hostEmail"+rowNumber).val();
             zsignUser = $("#select_zsuser_row_"+rowNumber).find(":selected").text();
-            tempJson.recipient_name = zsignUser.split("-")[1];
-            tempJson.recipient_email = zsignUser.split("-")[0];
+            tempJson.recipient_name = zsignUser.split("{")[1];
+            tempJson.recipient_email = zsignUser.split("{")[0];
         }
         /*else{
             tempJson.recipient_name = displayTextName;
